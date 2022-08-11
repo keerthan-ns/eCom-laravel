@@ -6,11 +6,12 @@
     $total = ProductController::cartItem();
   }
 ?>
+
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header" style="margin:'0px'">
-      <a href="/" class="navbar-brand" style="color:#00ffcc"><span class="glyphicon glyphicon-bishop"></span> Phoenix.in</a>
+      <a href="/" class="navbar-brand" style="color:#cc66ff"><span class="glyphicon glyphicon-bishop"></span> Phoenix.in</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->

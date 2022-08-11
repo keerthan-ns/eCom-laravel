@@ -1,9 +1,10 @@
 @extends('master')
 
 @section('content')
-<div class="container custom-login">
+<div class="container custom-login"  style="width: 30%;background-color:#ccccff;margin-bottom:100px;">
+    <h3 align='center'>Register Now</h3>
     <div class="row">
-        <div class="col-sm-4 col-sm-offset-4">
+        <div class=""  style="width:100%;padding:10%;">
             <form action="/register" method="POST">
                 @csrf
                 <div class="form-group">
@@ -25,4 +26,5 @@
         </div>
     </div>
 </div>
+
 @endsection 

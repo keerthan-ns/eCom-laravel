@@ -1,9 +1,10 @@
 @extends('master')
 
 @section('content')
-<div class="container custom-login">
-    <div class="row">
-        <div class="col-sm-4 col-sm-offset-4">
+<div class="container custom-login" style="width: 30%;background-color:#ccccff;">
+    <h3 align='center'>Login Now</h3>
+    <div class="row" style="">
+        <div class=""  style="width:100%;padding:10%;">
             <form action="/login" method="POST">
                 <div class="form-group">
                     @csrf

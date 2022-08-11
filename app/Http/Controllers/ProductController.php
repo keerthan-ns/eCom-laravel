@@ -37,11 +37,22 @@ class ProductController extends Controller
     function addToCart(Request $req)
     {   
         if($req->session()->has('user'))
-        {
-            $cart = new Cart;
-            $cart->user_id = $req->session()->get('user')['id'];
-            $cart->product_id = $req->product_id;
-            $cart->save();
+        {   
+            $exists = Cart::where('user_id',$req->session()->get('user')['id'])->where('product_id',$req->product_id)->first();
+            if($exists == null)
+            {
+                $cart = new Cart;
+                $cart->user_id = $req->session()->get('user')['id'];
+                $cart->product_id = $req->product_id;
+                $cart->quantity = $req->quantity;
+                $cart->save();
+            }
+            else{
+                Cart::where('user_id',$req->session()->get('user')['id'])->where('product_id',$req->product_id)
+                    ->update([
+                        'quantity'=> $req->quantity
+                    ]);
+            }
             return redirect('/');
         }
         else
@@ -60,12 +71,37 @@ class ProductController extends Controller
         $products= DB::table('cart')
         ->join('products','cart.product_id','=','products.id')
         ->where('cart.user_id',$userId)
-        ->select('products.*','cart.id as cart_id')
+        ->select('products.*','cart.id as cart_id','cart.quantity as quantity')
         ->get();
 
         return view('cartlist',['products'=>$products]);
     }
+    function decrementQuantity($id)
+    {   
+        $quantity = DB::table('cart')->where('id',$id)->select('quantity')->get();
+        foreach($quantity as $item)
+            $a=(array)$item;
 
+        DB::table('cart')
+        ->where('id', $id)
+        ->update([
+            'quantity'=>$a['quantity']-1
+        ]);
+        return redirect('cartlist');
+    }
+    function incrementQuantity(Request $req,$id)
+    {
+        $quantity = DB::table('cart')->where('id',$id)->select('quantity')->get();
+        foreach($quantity as $item)
+            $a=(array)$item;
+            
+        DB::table('cart')
+        ->where('id', $id)
+        ->update([
+            'quantity'=>$a['quantity']+1
+        ]);
+        return redirect('cartlist');
+    }
     function removeCart($id)
     {
         Cart::destroy($id);
@@ -74,12 +110,18 @@ class ProductController extends Controller
     function orderNow()
     {
         $userId=Session::get('user')['id'];
-        $total= $products= DB::table('cart')
+        $list= DB::table('cart')
          ->join('products','cart.product_id','=','products.id')
          ->where('cart.user_id',$userId)
-         ->sum('products.price');
- 
-         return view('ordernow',['total'=>$total]);
+         ->select('products.*','cart.quantity as quantity')->get();
+        //  ->sum('products.current_price');This was actually above statement products.current_price as price
+        $total=0;
+        foreach($list as $item)
+        {
+            $a =  (array)$item;
+            $total = $total + ($a['current_price']*$a['quantity']);
+        }
+         return view('ordernow',['products'=>$list,'total'=>$total]);
     }
     function orderPlace(Request $req)
     {
@@ -90,9 +132,13 @@ class ProductController extends Controller
              $order= new Order;
              $order->product_id=$cart['product_id'];
              $order->user_id=$cart['user_id'];
+             $order->quantity=$cart['quantity'];
              $order->status="Yet to dispatch";
              $order->payment_method=$req->payment;
-             $order->payment_status="Pending";
+             if($req->payment == "Pay on Delivery")
+                $order->payment_status="Pending";
+             else
+                $order->payment_status="Done";
              $order->address=$req->address;
              $order->save();
              Cart::where('user_id',$userId)->delete(); 
@@ -106,7 +152,7 @@ class ProductController extends Controller
         $orders= DB::table('orders')
          ->join('products','orders.product_id','=','products.id')
          ->where('orders.user_id',$userId)
-         ->get();
+         ->get()->reverse();
  
          return view('myorders',['orders'=>$orders]);
     }

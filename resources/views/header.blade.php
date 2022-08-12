@@ -13,12 +13,17 @@
     <div class="navbar-header" style="margin:'0px'">
       <a href="/" class="navbar-brand" style="color:#cc66ff"><span class="glyphicon glyphicon-bishop"></span> Phoenix.in</a>
     </div>
-
+    <?php
+      if(Session::has('user'))
+        $logged = "pointer-events: clickable;";
+      else
+        $logged = "pointer-events: none;";
+    ?>
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li class="active"><a href="/">Home </a></li>
-        <li class=""><a href="/myorders">Orders </a></li>
+        <li class=""><a href="/myorders" style="{{$logged}}">Orders </a></li>
       </ul>
       <form class="navbar-form navbar-left" action="/search">
         <div class="input-group">
@@ -32,7 +37,7 @@
       </form>
       <ul class="nav navbar-nav navbar-right"> 
         <li>
-          <a href="/cartlist" class="btn">
+          <a href="/cartlist" class="btn" style="{{$logged}}">
             <span class="glyphicon glyphicon-shopping-cart"></span> Cart({{$total}})
           </a>
         </li>

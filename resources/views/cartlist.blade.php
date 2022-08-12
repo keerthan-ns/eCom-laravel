@@ -3,12 +3,12 @@
 @section("content")
 <div class="custom-product">
   @if(!$products->isEmpty())
-    <div class="col-md-9">
+    <div class="col-md-9" style="background-color:#e0ebeb;">
       <div class="trending-wrapper">
         <h2>Welcome to your cart 
         <a class="btn btn-success" href="ordernow">Proceed to checkout</a></h2>
         @foreach($products as $item)
-          <div class="row p-2 bg-white border rounded mt-2" style="background-color:#e0ebeb;margin:10px;padding:20px;">
+          <div class="row p-2 bg-white border rounded mt-2" style="background-color:#ffffff;margin:10px;padding:20px;">
             <div class="col-md-3 mt-1">
               <img class="img-fluid img-responsive rounded product-image" style="height: 110px;width: 90px;" src="{{$item->gallery}}">
             </div>

@@ -1,4 +1,4 @@
-<div style="clear:both;" class="panel panel-default">
+<div style="clear:both;" class="panel panel-default" >
   <div class="panel-body" style="background-color: #000080;color:white;text-align:center;">
     <a href="/" style="color:white"><span class="glyphicon glyphicon-bishop"></span> Phoenix.in</a>
   </div>

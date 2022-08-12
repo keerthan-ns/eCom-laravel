@@ -114,7 +114,6 @@ class ProductController extends Controller
          ->join('products','cart.product_id','=','products.id')
          ->where('cart.user_id',$userId)
          ->select('products.*','cart.quantity as quantity')->get();
-        //  ->sum('products.current_price');This was actually above statement products.current_price as price
         $total=0;
         foreach($list as $item)
         {

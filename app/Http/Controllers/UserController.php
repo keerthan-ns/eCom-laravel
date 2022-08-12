@@ -23,7 +23,6 @@ class UserController extends Controller
     }
     function register(Request $req)
     {
-        //return $req
         $user = new User;
         $user->name = $req->name;
         $user->email = $req->email;

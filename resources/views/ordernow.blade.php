@@ -1,111 +1,68 @@
 @extends('master')
 @section("content")
-<!-- <div class="custom-product">
-     <div class="col-sm-10">
-        <table class="table">
-            <tbody>
-              <tr>
-                <td>Amount</td>
-              <td><i class="fa fa-inr"></i> {{$total}}</td>
-              </tr>
-              <tr>
-                <td>Tax</td>
-                <td><i class="fa fa-inr"></i> 0</td>
-              </tr>
-              <tr>
-                <td>Delivery </td>
-                <td><i class="fa fa-inr"></i> 75</td>
-              </tr>
-              <tr>
-                <td>Total Amount</td>
-              <td><i class="fa fa-inr"></i> {{$total+75}}</td>
-              </tr>
-            </tbody>
-          </table>
-          <div>
-            <form action="/orderplace" method="POST" >
-              @csrf
-                <div class="form-group">
-                  <textarea name="address" placeholder="Enter your address" class="form-control" ></textarea>
-                </div>
-                <div class="form-group">
-                  <label for="pwd">Payment Method</label> <br> <br>
-                  <input type="radio" value="cash" name="payment"> <span>Online payment</span> <br> <br>
-                  <input type="radio" value="cash" name="payment"> <span>EMI payment</span> <br><br>
-                  <input type="radio" value="cash" name="payment"> <span>Pay on Delivery</span> <br> <br>
-                </div>
-                <button type="submit" class="btn btn-success">Order Now</button>
-              </form>
-              <a href="/cartlist" class="btn btn-warning" style="margin-top:10px ">Cancel</a>
-          </div>
-     </div>
-</div> -->
 <div class='container'>
   <div class='window'>
     <div class='order-info'>
       <div class='order-info-content'>
         <h3>Order Summary</h3>
-          <div class='line'></div>
-            <div style="overflow-y:scroll; height:400px;">
-              @foreach($products as $item)
-                <table class='order-table'>
-                  <tbody>
-                    <tr>
-                      <td><img src='{{$item->gallery}}' class='full-width'></img>
-                      </td>
-                      <td>
-                        <br> <span class='thin'>{{$item->name}}</span><br>
-                        <span class='thin small'> Quantity : {{$item->quantity}}<br><br></span>
-                      </td>
-
-                    </tr>
-                    <tr>
-                      <td>
-                        <div class='price'><i class="fa fa-inr"></i>{{$item->current_price*$item->quantity}}</div>
-                      </td>
-                    </tr>
-                  </tbody>
-
-                </table>
-                <div class='line'></div>
-              @endforeach
-            </div>   
-
-        
-        <div class='total'>
-          <span style='float:left;'>
-            <div class='thin dense'>Total(Incl. tax)</div>
-            <div class='thin dense'>Delivery</div>
-            TOTAL
-          </span>
-          <span style='float:right; text-align:right;'>
-            <div class='thin dense'><i class="fa fa-inr"></i> {{$total}}</div>
-            <div class='thin dense'><i class="fa fa-inr"></i> 75</div>
-            <i class="fa fa-inr"></i>{{$total+75}}
-          </span>
-        </div>
-</div>
-</div>
-        <div class='credit-info'>
-          <div class='credit-info-content'>
-            <form action="/orderplace" method="POST" >
-              @csrf
-              <div class="form-group">
-                  <label for="pwd"><h4>Select your payment method:</h4></label> <br> <br>
-                  <input type="radio" value="Net Banking" name="payment"> <span>Net Banking</span> <br> <br>
-                  <input type="radio" value="Credit/Debit card" name="payment"> <span>Credit/Debit card</span> <br><br>
-                  <input type="radio" value="Pay on Delivery" name="payment"> <span>Pay on Delivery</span> <br> <br>
-              </div>
-              <h4>Address</h4>
-              <div class="form-group">
-                <textarea name="address" placeholder="Enter your address" class="form-control" style="resize:none;"></textarea>
-              </div>
-              <button type="submit" class='pay-btn'>Order Now</button>
-            </form>
-            <a href="/cartlist" class="btn btn-warning" style="margin-top:10px ">Cancel</a>
+        <div class='line'></div>
+          <div style="overflow-y:scroll; height:400px;">
+            @foreach($products as $item)
+              <table class='order-table'>
+                <tbody>
+                  <tr>
+                    <td><img src='{{$item->gallery}}' class='full-width'></img>
+                    </td>
+                    <td>
+                      <br> <span class='thin'>{{$item->name}}</span><br>
+                      <span class='thin small'> Quantity : {{$item->quantity}}<br><br></span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class='price'><i class="fa fa-inr"></i>{{$item->current_price*$item->quantity}}</div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class='line'></div>
+            @endforeach
+          </div>   
+          <div class='total'>
+            <span style='float:left;'>
+              <div class='thin dense'>Total(Incl. tax)</div>
+              <div class='thin dense'>Delivery</div>
+              TOTAL
+            </span>
+            <span style='float:right; text-align:right;'>
+              <div class='thin dense'><i class="fa fa-inr"></i> {{$total}}</div>
+              <div class='thin dense'><i class="fa fa-inr"></i> 75</div>
+              <i class="fa fa-inr"></i>{{$total+75}}
+            </span>
           </div>
         </div>
       </div>
+      <div class='credit-info'>
+        <div class='credit-info-content'>
+          <form action="/orderplace" method="POST" >
+            @csrf
+            <div class="form-group">
+              <label for="pwd"><h4>Select your payment method:</h4></label> <br> <br>
+              <input type="radio" value="Net Banking" name="payment"> <span>Net Banking</span> <br> <br>
+              <input type="radio" value="Credit/Debit card" name="payment"> <span>Credit/Debit card</span> <br><br>
+              <input type="radio" value="Pay on Delivery" name="payment"> <span>Pay on Delivery</span> <br> <br>
+            </div>
+            <h4>Address</h4>
+            <div class="form-group">
+              <textarea name="address" placeholder="Enter your address" class="form-control" style="resize:none;"></textarea>
+            </div>
+            <button type="submit" class='pay-btn'>Order Now</button>
+          </form>
+          <a href="/cartlist" class="btn btn-warning" style="margin-top:10px ">Cancel</a>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 <style>
   @import url(https://fonts.googleapis.com/css?family=Lato:400,300,700);

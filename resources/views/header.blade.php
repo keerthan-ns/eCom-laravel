@@ -19,7 +19,6 @@
       <ul class="nav navbar-nav">
         <li class="active"><a href="/">Home </a></li>
         <li class=""><a href="/myorders">Orders </a></li>
-
       </ul>
       <form class="navbar-form navbar-left" action="/search">
         <div class="input-group">
@@ -31,19 +30,12 @@
           </div>
         </div>
       </form>
-      <ul class="nav navbar-nav navbar-right">
-        <!-- <li>
-          <a href="/cartlist">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJtygPAsEPS5jmPwuXN7d8fachGcvvomsIqEwvPl8xYxdb_vxIAuf6Q3g1WVlYeQDuDTs&usqp=CAU" height='25px' width='25px'>
-            Cart({{$total}})</a>
-        </li> -->
-        <!-- <-----------------------------------> 
+      <ul class="nav navbar-nav navbar-right"> 
         <li>
           <a href="/cartlist" class="btn">
             <span class="glyphicon glyphicon-shopping-cart"></span> Cart({{$total}})
           </a>
         </li>
-        <!-- <-----------------------------------> 
         @if(Session::has('user'))
           <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="color:#ffffff">{{Session::get('user')['name']}}

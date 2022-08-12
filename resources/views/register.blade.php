@@ -19,12 +19,9 @@
                     <label for="exampleInputPassword1">Password</label>
                     <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Enter password">
                 </div>
-                
-                
                 <button type="submit" class="btn btn-default">Register</button>
             </form>
         </div>
     </div>
 </div>
-
 @endsection 
